@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>南城の主页</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E9%98%BF%E5%8D%9C%3C/text%3E%3C/svg%3E">
+    <meta name="robots" content="index,follow">
+    <meta name="keywords" content="南城,个人主页,南城的个人主页">
+    <meta name="description" content="南城,个人主页,南城的个人主页">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="assets/css/fonts.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/all.min.css" media="all">
+
+    <style>
+        /* ===== 全局重置 ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow: hidden;
+            height: 100%;
+            width: 100%;
+            -webkit-text-size-adjust: none;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            border-bottom: dotted 1px;
+            transition: border-color 0.2s;
+        }
+
+        a:hover {
+            border-color: transparent;
+        }
+
+        /* ===== 背景与图层 ===== */
+        #wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            animation: wrapper 3s forwards;
+        }
+
+        #bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 6750px;
+            height: 100%;
+            background: #fff url("assets/img/bg.jpg") center left repeat-x;
+            background-size: auto 100%;
+            animation: bg 60s linear infinite;
+            opacity: 0.9;
+        }
+
+        @keyframes bg {
+            0% {
+                transform: translate3d(0, 0, 0);
+            }
+            100% {
+                transform: translate3d(-8000px, 0, 0);
+            }
+        }
+
+        @keyframes wrapper {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Ccircle cx='2' cy='2' r='1' fill='rgba(0,0,0,0.1)'/%3E%3C/svg%3E"),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='rgba(0,0,0,0.4)'/%3E%3Cstop offset='1' stop-color='rgba(0,0,0,0.8)'/%3E%3C/linearGradient%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E");
+            background-position: top left, center;
+            background-repeat: repeat, no-repeat;
+            background-size: auto, cover;
+            animation: overlay 1.5s 1.5s forwards;
+            opacity: 0;
+        }
+
+        @keyframes overlay {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* ===== 主容器 ===== */
+        #main {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+            overflow-y: auto;
+        }
+
+        #main:before {
+            content: '';
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+            width: 1px;
+        }
+
+        #header {
+            display: inline-block;
+            width: 90%;
+            max-width: 620px;
+            margin: 0 auto;
+            opacity: 0;
+            animation: header 0.5s 0.75s forwards;
+        }
+
+        @keyframes header {
+            0% {
+                transform: translate3d(0, 1em, 0);
+                opacity: 0;
+            }
+            100% {
+                transform: translate3d(0, 0, 0);
+                opacity: 1;
+            }
+        }
+
+        #header h1 {
+            font-size: 4.35em;
+            font-weight: 900;
+            letter-spacing: -0.035em;
+            line-height: 1.1;
+        }
+
+        #header p {
+            font-size: 1.25em;
+            font-weight: 300;
+            margin: 0.75em 0 0.25em;
+            opacity: 0.8;
+        }
+
+        /* ===== Footer ===== */
+        #footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3.2em;
+            line-height: 3.2em;
+            text-align: center;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
+            font-size: 0.85em;
+            opacity: 0.7;
+            letter-spacing: 0.5px;
+            padding: 0 10px;
+        }
+
+        #footer p {
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        #footer a {
+            border-bottom: none;
+        }
+
+        #footer .separator {
+            margin: 0 8px;
+            opacity: 0.3;
+        }
+
+        /* ===== 隐藏 vConsole ===== */
+        #__vconsole,
+        .vconsole-btn,
+        [class*="vconsole"] {
+            display: none !important;
+        }
+
+        /* ===== 头像 ===== */
+        .ih-item.circle {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto;
+        }
+
+        .ih-item.circle .img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .ih-item.circle .img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .ih-item.circle .info {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .profilepic {
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5), 0px 2px 20px 3px rgba(0, 0, 0, 0.25);
+        }
+
+        .iUp {
+            opacity: 0;
+            transform: translate3d(0, 80px, 0);
+            transition: all 2s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .iUp.up {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+        }
+
+        /* ===== 药丸按钮 ===== */
+        .pill-buttons-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px 12px;
+            margin: 16px 0;
+        }
+
+        .pill-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px 16px;
+            border-radius: 40px;
+            background: rgba(255, 255, 255, 0.10);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: #f0f0f0;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.25s;
+            cursor: pointer;
+            min-width: 60px;
+            white-space: nowrap;
+        }
+
+        .pill-button:hover {
+            background: rgba(255, 255, 255, 0.22);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        .pill-button.is-label {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.08);
+            cursor: default;
+            color: rgba(255, 255, 255, 0.55);
+        }
+
+        .pill-button.is-label:hover {
+            transform: none;
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .pill-badge {
+            display: inline-block;
+            font-size: 10px;
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 20px;
+            padding: 0 8px;
+            margin-left: 6px;
+            line-height: 18px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .pill-button.primary-card {
+            background: rgba(255, 215, 0, 0.15);
+            border-color: rgba(255, 215, 0, 0.3);
+            color: #ffecb0;
+        }
+
+        .pill-button.primary-card:hover {
+            background: rgba(255, 215, 0, 0.25);
+            border-color: rgba(255, 215, 0, 0.5);
+            color: #fff6d6;
+        }
+
+        /* ===== 联系方式 ===== */
+        .contact-icons-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px 18px;
+            margin: 10px 0;
+        }
+
+        .contact-icon {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 22px;
+            transition: color 0.25s, transform 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-icon:hover {
+            color: #fff;
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        .wechat-qr {
+            display: none;
+            position: absolute;
+            bottom: calc(100% + 12px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(30, 30, 40, 0.92);
+            backdrop-filter: blur(8px);
+            border-radius: 12px;
+            padding: 10px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 20;
+            width: 130px;
+        }
+
+        .wechat-qr img {
+            width: 100%;
+            display: block;
+            border-radius: 6px;
+        }
+
+        .wechat-icon {
+            position: relative;
+        }
+
+        .wechat-icon:hover .wechat-qr {
+            display: block;
+        }
+
+        .wechat-qr::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 8px solid transparent;
+            border-top-color: rgba(30, 30, 40, 0.92);
+        }
+
+        /* ===== 时钟 ===== */
+        #canvas {
+            width: 60% !important;
+            max-width: 360px;
+            aspect-ratio: 920 / 350;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 50%, rgba(255, 255, 255, 0.03) 100%);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1), inset 0 0 20px rgba(255, 255, 255, 0.05);
+            transition: all 0.3s;
+            animation: clockBorderColor 15s linear infinite, clockBackgroundColor 15s linear infinite;
+            margin: 10px auto;
+        }
+
+        @keyframes clockBorderColor {
+            0% {
+                border-color: rgba(255, 255, 255, 0.4);
+            }
+            6.67% {
+                border-color: rgba(255, 107, 107, 0.4);
+            }
+            13.33% {
+                border-color: rgba(78, 205, 196, 0.4);
+            }
+            20% {
+                border-color: rgba(69, 183, 209, 0.4);
+            }
+            26.67% {
+                border-color: rgba(150, 206, 180, 0.4);
+            }
+            33.33% {
+                border-color: rgba(255, 234, 167, 0.4);
+            }
+            40% {
+                border-color: rgba(221, 160, 221, 0.4);
+            }
+            46.67% {
+                border-color: rgba(152, 216, 200, 0.4);
+            }
+            53.33% {
+                border-color: rgba(247, 220, 111, 0.4);
+            }
+            60% {
+                border-color: rgba(187, 143, 206, 0.4);
+            }
+            66.67% {
+                border-color: rgba(133, 193, 233, 0.4);
+            }
+            73.33% {
+                border-color: rgba(248, 196, 113, 0.4);
+            }
+            80% {
+                border-color: rgba(130, 224, 170, 0.4);
+            }
+            86.67% {
+                border-color: rgba(241, 148, 138, 0.4);
+            }
+            93.33% {
+                border-color: rgba(215, 189, 226, 0.4);
+            }
+            100% {
+                border-color: rgba(255, 255, 255, 0.4);
+            }
+        }
+
+        @keyframes clockBackgroundColor {
+            0% {
+                background: radial-gradient(circle at center, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 50%, rgba(255, 255, 255, 0.03) 100%);
+            }
+            6.67% {
+                background: radial-gradient(circle at center, rgba(255, 107, 107, 0.15) 0%, rgba(255, 107, 107, 0.08) 50%, rgba(255, 107, 107, 0.03) 100%);
+            }
+            13.33% {
+                background: radial-gradient(circle at center, rgba(78, 205, 196, 0.15) 0%, rgba(78, 205, 196, 0.08) 50%, rgba(78, 205, 196, 0.03) 100%);
+            }
+            20% {
+                background: radial-gradient(circle at center, rgba(69, 183, 209, 0.15) 0%, rgba(69, 183, 209, 0.08) 50%, rgba(69, 183, 209, 0.03) 100%);
+            }
+            26.67% {
+                background: radial-gradient(circle at center, rgba(150, 206, 180, 0.15) 0%, rgba(150, 206, 180, 0.08) 50%, rgba(150, 206, 180, 0.03) 100%);
+            }
+            33.33% {
+                background: radial-gradient(circle at center, rgba(255, 234, 167, 0.15) 0%, rgba(255, 234, 167, 0.08) 50%, rgba(255, 234, 167, 0.03) 100%);
+            }
+            40% {
+                background: radial-gradient(circle at center, rgba(221, 160, 221, 0.15) 0%, rgba(221, 160, 221, 0.08) 50%, rgba(221, 160, 221, 0.03) 100%);
+            }
+            46.67% {
+                background: radial-gradient(circle at center, rgba(152, 216, 200, 0.15) 0%, rgba(152, 216, 200, 0.08) 50%, rgba(152, 216, 200, 0.03) 100%);
+            }
+            53.33% {
+                background: radial-gradient(circle at center, rgba(247, 220, 111, 0.15) 0%, rgba(247, 220, 111, 0.08) 50%, rgba(247, 220, 111, 0.03) 100%);
+            }
+            60% {
+                background: radial-gradient(circle at center, rgba(187, 143, 206, 0.15) 0%, rgba(187, 143, 206, 0.08) 50%, rgba(187, 143, 206, 0.03) 100%);
+            }
+            66.67% {
+                background: radial-gradient(circle at center, rgba(133, 193, 233, 0.15) 0%, rgba(133, 193, 233, 0.08) 50%, rgba(133, 193, 233, 0.03) 100%);
+            }
+            73.33% {
+                background: radial-gradient(circle at center, rgba(248, 196, 113, 0.15) 0%, rgba(248, 196, 113, 0.08) 50%, rgba(248, 196, 113, 0.03) 100%);
+            }
+            80% {
+                background: radial-gradient(circle at center, rgba(130, 224, 170, 0.15) 0%, rgba(130, 224, 170, 0.08) 50%, rgba(130, 224, 170, 0.03) 100%);
+            }
+            86.67% {
+                background: radial-gradient(circle at center, rgba(241, 148, 138, 0.15) 0%, rgba(241, 148, 138, 0.08) 50%, rgba(241, 148, 138, 0.03) 100%);
+            }
+            93.33% {
+                background: radial-gradient(circle at center, rgba(215, 189, 226, 0.15) 0%, rgba(215, 189, 226, 0.08) 50%, rgba(215, 189, 226, 0.03) 100%);
+            }
+            100% {
+                background: radial-gradient(circle at center, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 50%, rgba(255, 255, 255, 0.03) 100%);
+            }
+        }
+
+        /* ===== 高亮文字 ===== */
+        .highlight-red {
+            color: #ff6b6b;
+            text-shadow: 0 0 5px rgba(255, 107, 107, 0.8);
+        }
+        .highlight-green {
+            color: #2ed573;
+            text-shadow: 0 0 5px rgba(46, 213, 115, 0.8);
+        }
+        .highlight-blue {
+            color: #3742fa;
+            text-shadow: 0 0 5px rgba(55, 66, 250, 0.8);
+        }
+        .highlight-purple {
+            color: #a55eea;
+            text-shadow: 0 0 5px rgba(165, 94, 234, 0.8);
+        }
+        .highlight-orange {
+            color: #ffa502;
+            text-shadow: 0 0 5px rgba(255, 165, 2, 0.8);
+        }
+        .highlight-cyan {
+            color: #26d0ce;
+            text-shadow: 0 0 5px rgba(38, 208, 206, 0.8);
+        }
+        .highlight-pink {
+            color: #ff9ff3;
+            text-shadow: 0 0 5px rgba(255, 159, 243, 0.8);
+        }
+        .highlight-yellow {
+            color: #feca57;
+            text-shadow: 0 0 5px rgba(254, 202, 87, 0.8);
+        }
+
+        /* ===== 音乐播放器 ===== */
+        .music-player {
+            position: fixed;
+            right: 16px;
+            bottom: 20px;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 14px 6px 10px;
+            border-radius: 40px;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(16px) saturate(1.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            cursor: grab;
+            user-select: none;
+            min-width: 140px;
+            max-width: 240px;
+            transition: background 0.3s;
+            touch-action: none;
+        }
+
+        .music-player:active {
+            cursor: grabbing;
+        }
+
+        .music-player:hover {
+            background: rgba(255, 255, 255, 0.35);
+        }
+
+        .music-disc {
+            flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #f0f0f0, #c0c0c0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            animation: spin 6s linear infinite;
+            animation-play-state: running;
+        }
+
+        .music-disc::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 40% 40%, #888, #222);
+            box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.6);
+        }
+
+        .music-disc .disc-icon {
+            font-size: 14px;
+            color: rgba(60, 60, 70, 0.6);
+            z-index: 1;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .music-player.paused .music-disc {
+            animation-play-state: paused;
+        }
+
+        .music-info {
+            flex: 1;
+            min-width: 0;
+            color: rgba(40, 40, 50, 0.85);
+            font-family: 'Poppins', 'Inter', sans-serif;
+            line-height: 1.2;
+        }
+
+        .music-info .song-name {
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: rgba(30, 30, 40, 0.9);
+        }
+
+        .music-info .song-artist {
+            font-size: 10px;
+            opacity: 0.65;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .music-control-btn {
+            flex-shrink: 0;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(4px);
+            color: rgba(50, 50, 60, 0.85);
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.25s, transform 0.2s;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+        }
+
+        .music-control-btn:hover {
+            background: rgba(255, 255, 255, 0.75);
+            transform: scale(1.08);
+        }
+
+        .music-control-btn:active {
+            transform: scale(0.92);
+        }
+
+        /* ===== 隐藏灯笼 ===== */
+        .deng-box,
+        .deng-box1,
+        .deng-box2,
+        .deng-box3 {
+            display: none;
+        }
+
+        /* ===== NoScript  ===== */
+        #wrapper {
+            opacity: 1 !important;
+        }
+        #overlay {
+            opacity: 1 !important;
+        }
+        #header {
+            opacity: 1 !important;
+        }
+        #header nav li {
+            opacity: 1 !important;
+        }
+
+        /* ===== 响应式 ===== */
+        @media (max-width: 640px) {
+            #header h1 {
+                font-size: 2.8em;
+            }
+            #header p {
+                font-size: 1em;
+            }
+            .ih-item.circle {
+                width: 90px;
+                height: 90px;
+            }
+            .profilepic {
+                width: 90px;
+                height: 90px;
+            }
+            .pill-button {
+                font-size: 12px;
+                padding: 5px 12px;
+                min-width: 50px;
+            }
+            .pill-buttons-container {
+                gap: 6px 8px;
+            }
+            #canvas {
+                width: 80% !important;
+                max-width: 300px;
+            }
+            .contact-icon {
+                width: 34px;
+                height: 34px;
+                font-size: 18px;
+            }
+            #footer {
+                font-size: 0.75em;
+                height: 2.8em;
+                line-height: 2.8em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #header h1 {
+                font-size: 2.2em;
+            }
+            .pill-button {
+                font-size: 11px;
+                padding: 4px 10px;
+                min-width: 44px;
+            }
+            .pill-buttons-container {
+                gap: 4px 6px;
+            }
+            .music-player {
+                right: 10px;
+                bottom: 14px;
+                padding: 4px 10px 4px 8px;
+                gap: 8px;
+                min-width: 110px;
+                max-width: 180px;
+                border-radius: 30px;
+            }
+            .music-disc {
+                width: 28px;
+                height: 28px;
+            }
+            .music-disc .disc-icon {
+                font-size: 11px;
+            }
+            .music-info .song-name {
+                font-size: 10px;
+            }
+            .music-info .song-artist {
+                font-size: 9px;
+            }
+            .music-control-btn {
+                width: 24px;
+                height: 24px;
+                font-size: 11px;
+            }
+            #canvas {
+                width: 90% !important;
+                max-width: 260px;
+            }
+            #footer {
+                font-size: 0.7em;
+                height: 2.5em;
+                line-height: 2.5em;
+            }
+        }
+
+        @media (max-width: 380px) {
+            #header h1 {
+                font-size: 1.8em;
+            }
+            .pill-button {
+                font-size: 10px;
+                padding: 3px 8px;
+                min-width: 38px;
+            }
+            .music-player {
+                right: 6px;
+                bottom: 10px;
+                padding: 3px 8px 3px 6px;
+                gap: 6px;
+                min-width: 90px;
+                max-width: 150px;
+                border-radius: 24px;
+            }
+            .music-disc {
+                width: 22px;
+                height: 22px;
+            }
+            .music-disc .disc-icon {
+                font-size: 9px;
+            }
+            .music-info .song-name {
+                font-size: 9px;
+            }
+            .music-info .song-artist {
+                font-size: 8px;
+            }
+            .music-control-btn {
+                width: 20px;
+                height: 20px;
+                font-size: 10px;
+            }
+            .contact-icon {
+                width: 30px;
+                height: 30px;
+                font-size: 16px;
+            }
+            #footer {
+                font-size: 0.6em;
+                height: 2.2em;
+                line-height: 2.2em;
+            }
+        }
+
+        .panel-cover {
+            animation: fadeIn 3s ease-in-out forwards;
+            width: 100%;
+            height: 100vh;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="bg"></div>
+        <div id="overlay"></div>
+        <div id="main">
+            <header id="header">
+                <div class="panel-main__content">
+                    <!-- 头像 -->
+                    <div class="ih-item circle effect right_to_left">
+                        <a class="blog-button">
+                            <div class="img">
+                                <img src="assets/img/avatar.jpg" alt="avatar" class="js-avatar iUp profilepic">
+                            </div>
+                            <div class="info iUp">
+                                <div class="info-back">
+                                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="avatar" class="js-avatar profilepic">
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <h1 class="panel-cover__title panel-title iUp">南城</h1>
+                    <p class="panel-cover__subtitle panel-subtitle iUp">be your true self</p>
+
+                    <!-- 时钟 -->
+                    <canvas class="navigation-wrapper iUp" id="canvas" width="920" height="350"></canvas>
+
+                    <!-- 药丸按钮组（按新顺序排列） -->
+                    <div class="pill-buttons-container iUp">
+                        <!-- 1. 主卡网 -->
+                        <a href="https://new.818fka.com/shop/nanc" class="pill-button primary-card" target="_blank" rel="noopener">主卡网 <span class="pill-badge">⬆</span></a>
+                        <!-- 2. 副卡网①（原副卡网②的链接） -->
+                        <a href="https://new.818fka.com/shop/nanc" class="pill-button" target="_blank" rel="noopener">副卡网①</a>
+                        <!-- 3. 副卡网②（新链接 fkli.cc/khll） -->
+                        <a href="https://new.818fka.com/shop/nancl" class="pill-button" target="_blank" rel="noopener">副卡网②</a>
+                        <!-- 4. 入驻平台 -->
+                        <a href="https://luoye.chyidc.cn/shop/LUO" class="pill-button" target="_blank" rel="noopener">副卡网</a>
+
+                        <!-- 以下保持不变 -->
+                        <span class="pill-button is-label">① 南城PUBG账号</span>
+                        <span class="pill-button is-label">② 必备精养TG号</span>
+                        <span class="pill-button is-label">③ 备用账号</span>
+                        <a href="https://t.me/D6658" class="pill-button" target="_blank" rel="noopener">官方频道 <span class="pill-badge">@nanchengnb666</span></a>
+                        <a href="https://www.ilanzou.com/s/1ZIxEF3P" class="pill-button" target="_blank" rel="noopener">TG安装包+vpn</a>
+                        <a href="https://www.ilanzou.com/s/pxMwtwQT" class="pill-button" target="_blank" rel="noopener">TG登录教程</a>
+                        <a href="https://www.ilanzou.com/s/oJxLaPI6" class="pill-button" target="_blank" rel="noopener">数据号抓号上号器</a>
+                        <a href="https://github.com/udvdgd/small-god-official" class="pill-button" target="_blank" rel="noopener">项目</a>
+                    </div>
+
+                    <!-- 联系方式 -->
+                    <div class="contact-icons-container iUp">
+                        <a href="https://v.kuaishou.com/nuKhhhjH" class="contact-icon" target="_blank" title="快手">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M13.676 8.758c-.688.345-1.463.455-2.162.734.967-1.403 2.192-2.589 3.376-3.755.355-.343.725-.786.595-1.26-.17-.63-.936-.77-1.48-.44-.54.33-.978.815-1.425 1.26-.424.42-.87.819-1.268 1.264-.4-.447-.845-.846-1.27-1.266-.447-.445-.885-.93-1.425-1.26-.545-.33-1.31-.19-1.48.44-.13.474.24.917.595 1.26 1.184 1.166 2.41 2.352 3.376 3.755-.699-.279-1.474-.39-2.162-.734-2.285-1.147-3.635-2.935-4.477-4.848-.084-.186-.198-.45-.36-.558-.496-.334-1.055.075-.95.587.098.487.326.926.55 1.361.704 1.37 1.606 2.637 2.81 3.623-2.109.823-4.522.998-6.84 1.164-.643.047-.884.262-.985.828-.088.491.386.813.818.927 1.527.403 3.161.329 4.704.497-.075.356-.177.702-.295 1.045-.684 1.967-2.048 3.706-3.636 5.002-.366.3-.553.742-.362 1.147.233.494.85.562 1.316.291.456-.267.814-.666 1.187-1.039 1.129-1.123 2.127-2.381 3.023-3.714.187.483.434.94.743 1.357.196.263.426.49.706.64.277.148.607.168.887.04.486-.222.562-.792.3-1.193-.317-.483-.544-1.012-.718-1.553-.046-.14-.088-.28-.13-.421 1.9.452 3.814.884 5.728.967.963.04 1.193-.66 1.007-1.453-.153-.652-.859-.917-1.462-1.076-1.566-.414-3.183-.651-4.782-.845.203-.79.55-1.546 1.061-2.196 1.381-1.762 3.21-2.944 5.16-3.773.772-.327 1.793-.475 2.214-1.228.225-.4.083-.977-.458-1.052-.83-.115-1.612.251-2.372.533z" />
+                            </svg>
+                        </a>
+                        <a href="#" class="contact-icon wechat-icon" title="微信">
+                            <i class="fab fa-weixin"></i>
+                            <div class="wechat-qr">
+                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAAAXNSR0IArs4c6QAAAARzQklUCAgICHwIZwAABKlJREFUeJztnU1oHFUYgN+Z2d3ZJJtNkqRpmjRpqtW0BlJTC5bSg1B68SAP9WQv3kT8By9eBG/iTQp6U/BQeglFpOgPERZRQQ2C1VJpK21BSbVpQ5s0TZM0+9uZ8TudmZ2Z3ZlZdzafM2GG87HvfO99eO9nhlmCEEIIIYQQQgghhBBCCCGEEDqYarSaBvcqE6lnmd6B/eBpxvbyM9axgtXUs3gnqF+nsps6JjJOUcm9Z9tQ0sEStzklhASHS0hQcY2FegFCQoKS0AlJFTTJvZYfVdEfL3WqWDi3i2QL24eKspkOaOOCuGdkq9hKpLp1/HsBwgtUc1YxDU1FAXgXbrImDWLx1o0UW5n0SVTZr8qkkbEd5CnHUg2e5FJhlyhSIwm9IEQkqxGeh6t5QvH+6A7cM4wyz3ELD0lABekCwcEDmpbS+WLL8Z5xdVpPBlIIjTDpehF8u0fHx2zO5cbNJrWU1zNKWWxN7THaYigEzu1aq8b+PDkfOUqSJyiSBSgH3MVlKqmXQQrv2KSwQWPSp9X0I/U7WjWTxCLrzQ47mTT7IYwA5AEsMclR55iLQpAMWQ9Amq1lh8wGAQEC0sbsygxJL8Kut0ag9nAAFWKMkXTLMhCQdiQMl0S5zFDzqoSUtQ8+1RyYrT4czYY5Ih0F9Y7EDNtNHZ2fPmgNJO/47Tq0R7k4CSC3RTFme8BcTr7nKZkLKySsx2mWqEw60rrL9dKDwOB6sBidRvcGR05zqThLrU1Quj5aAuik+4w71SNuN/IiGzW1Fi50cyq3e3by55/17mR9Z9ql/5tvy/n8OmcGSeQl7hT2ASZ8fY8HNL6Pep0Ex9HItRNHzRrWNvXzI+2ijI9D8zBCBuQb8AtmTjNfnE9XcM1rJYzqVx03M9b3jzSncBkXWQHmXwAYJfGd0QlSH6Wt4z59HnUdQ9ktmMpTTDgPKEH17aGJx/gS4yNLrO1i7BHQ8Rj9TL6nrwfc74/G5HkI5FvwOCnFBywqHbxN7B1wgQ9SbLJkv+LhfePcZPmR4u6xGTlA8rGGeIdRivBdIz/QlDB4TBFZ4FUKZb7jC/z3dm78Bn4RrgK+PSd4RAuAGtdx6DbPdmw5x7AFmhWAnuMd7vBzeOe5c3Lzn4xr2AB8jQTO0cVjH7E3V4iylpVvQoj3l5QrrmO9wx7yPNkEPPQcI20yUWyi6+ivx2+v1mDEGCEhIUELCQoIWEhIUpdKJk1cJygkGJKRpDQ1z1PBMhCQNqIYFslVGRoYbK+kZ5n2m4OocS7HvE3sLf71CHYJJCoWQUIJFhYQU8Lf3jZKGtSSZ9JbRohD9x99cVVyHFAs7++byv5//QYiLV7FdRwxUuL/6lZGR+6hwS4pxCslR4Hwuc9sZZuonTCDNRzh9H3EubM8hUSGtIAuFM/zCGC3qPfdZk7J99fI44XxO4STpA4dFJ61D2e/l9pL7fIotZ1+jsvjKk+23j4oYSB2fWOG/RehS0hK9DpeG0iK0aPp9Jo1um+fDaQmtD9JA0lI0qAS7REa6hWjXkKc1uChhkJhVEBISEhISEhISEhI4HkMlzmC0Vc6GEhUAFo42SjwqkgDqRphHYdnO2oYxL7uEfYbEixmpYGkgfSHUQOZYpCGY2RqIL6VkJAQBwjBIRZzFIgLKyEhISFBa8CfDkQHZIIICm0AAAAASUVORK5CYII=" alt="微信二维码">
+                            </div>
+                        </a>
+                        <a href="2164064991@qq.com" class="contact-icon" title="邮箱"><i class="fas fa-envelope"></i></a>
+                        <a href="https://github.com/udvdgd/small-god-official" class="contact-icon" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://b23.tv/EHpJbRI" class="contact-icon" target="_blank" title="哔哩哔哩"><i class="iconfont icon-bilibili"></i></a>
+                    </div>
+
+                    <!-- 分隔线（已隐藏） -->
+                    <hr class="iUp" style="border:0; border-top:1px solid rgba(255,255,255,0.15); width:50%; margin:16px auto; display:none;">
+
+                    <p id="description" class="panel-cover__description iUp">
+                        每一个人都应该 <span class="highlight-red">明确</span> 自己的方向 <span class="highlight-green">和</span> 位置
+                        <strong>-「南城裕」</strong>
+                    </p>
+                </div>
+            </header>
+
+            <!-- Footer -->
+            <footer id="footer">
+                <p>
+                    <b>&copy; 2022 - <script>document.write(new Date().getFullYear());</script> 南城</b>
+                    <span class="separator">|</span>
+                    <b><a href="https://beian.miit.gov.cn/" target="_blank">桂ICP备2023003912号-1</a></b>
+                </p>
+            </footer>
+        </div>
+    </div>
+
+    <!-- 音乐播放器 -->
+    <div class="music-player" id="musicPlayer">
+        <div class="music-disc" id="musicDisc"><span class="disc-icon">♪</span></div>
+        <div class="music-info"><div class="song-name" id="songName">夏日限定</div><div class="song-artist" id="songArtist">南城 · 治愈</div></div>
+        <button class="music-control-btn" id="playBtn" title="播放/暂停"><i class="fas fa-pause" id="playIcon"></i></button>
+    </div>
+
+    <!-- 背景音乐（已启用，请确保 bgm_home_main.mp3 文件存在于同目录） -->
+    <audio id="bgm" src="bgm_home_main.mp3" loop preload="auto"></audio>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script>
+        // ---- 时钟 ----
+        (function() {
+            var t = 820,
+                a = 250,
+                r = 7,
+                n = 10,
+                e = 0.65,
+                f,
+                o = [];
+            const v = ["#ffffff", "#FF6B6B", "#4ECDC4", "#45B7D1", "#96CEB4", "#FFEAA7", "#DDA0DD", "#98D8C8", "#F7DC6F", "#BB8FCE", "#85C1E9", "#F8C471", "#82E0AA", "#F1948A", "#D7BDE2"];
+            var currentColorIndex = 0,
+                lastSecond = -1,
+                h = [];
+            var u = [
+                [
+                    [0, 0, 1, 1, 1, 0, 0],
+                    [0, 1, 1, 0, 1, 1, 0],
+                    [1, 1, 0, 0, 0, 1, 1],
+                    [1, 1, 0, 0, 0, 1, 1],
+                    [1, 1, 0, 0, 0, 1, 1],
+                    [1, 1, 0, 0, 0, 1, 1],
+                    [1, 1, 0, 0, 0, 1, 1],
+                    [1, 1, 0, 0, 0, 1, 1],
+                    [0, 1, 1, 0, 1, 1, 0],
+                    [0, 0, 1, 1, 1, 0, 0]
+                ],
+                [
+                    [0, 0, 0, 1, 1, 0, 0],
+                    [0, 1, 1, 1, 1, 0, 0],
+                    [0, 0, 0, 1, 1, 0, 0],
+                    [0, 0, 0, 1, 1, 0, 0],
+                    [0, 0, 0, 1, 1, 0, 0],
+                    [0, 0, 0, 1, 1, 0, 0],
+                    [0, 0, 0, 1, 1, 0, 0],
+                    [0, 0, 0, 1, 1, 0, 0],
+                    [0, 0, 0, 1, 1, 0, 0],
+                    [1, 1, 1, 1, 1, 1, 1]
+                ],
+                [
+                    [0, 1, 1, 1, 1, 1, 0],
+                    [1, 1, 0, 0, 0, 1, 1],
+                    [0, 0, 0, 0, 0, 1, 1],
+                    [0, 0, 0, 0, 1, 1, 0],
+                    [0, 0, 0, 1, 1, 0, 0],
+                    [0, 0, 1, 1, 0, 0, 0],
+                    [0, 1, 1, 0, 0, 0, 0],
+                    [1, 1, 0, 0, 0, 0, 0],
+                    [1, 1, 0, 0, 0, 1, 1],
+                    [1, 1, 1, 1, 1, 1, 1]
+                ],
+                [
+                    [1, 1, 1, 1, 1, 1, 1],
+                    [0, 0, 0, 0, 0, 1, 1],
+                    [0, 0, 0, 0, 1, 1, 0],
+                    [0, 0, 0, 1, 1, 0, 0],
+                    [0, 0, 1, 1, 1, 0, 0],
+                    [0, 0, 0, 0, 1, 1, 0],
+                    [0, 0, 0, 0, 0, 1, 1],
+                    [0, 0, 0, 0, 0, 1, 1],
+                    [1, 1, 0, 0, 0, 1, 1],
+                    [0, 1, 1, 1, 1, 1, 0]
+                ],
+                [
+                    [0, 0, 0, 0, 1, 1, 0],
+                    [0, 0, 0, 1, 1, 1, 0],
+                    [0, 0, 1, 1, 1, 1, 0],
+                    [0, 1, 1, 0, 1, 1, 0],
+                    [1, 1, 0, 0, 1, 1, 0],
+                    [1, 1, 1, 1, 1, 1, 1],
+                    [0, 0, 0, 0, 1, 1, 0],
+                    [0, 0, 0, 0, 1, 1, 0],
+                    [0, 0, 0, 0, 1, 1, 0],
+                    [0, 0, 0, 1, 1, 1, 1]
+                ],
+                [
+                    [1, 1, 1, 1, 1, 1, 1],
+                    [1, 1, 0, 0, 0, 0, 0],
+                    [1, 1, 0, 0, 0, 0, 0],
+                    [1, 1, 1, 1, 1, 1, 0],
+                    [0, 0, 0, 0, 0, 1, 1],
+                    [0, 0, 0, 0, 0, 1, 1],
+                    [0, 0, 0, 0, 0, 1, 1],
+                    [0, 0, 0, 0, 0, 1, 1],
+                    [1, 1, 0, 0, 0, 1, 1],
+                    [0, 1, 1, 1, 1, 1, 0]
+                ],
+                [
+                    [0, 0, 0, 0, 1, 1, 0],
+                    [0, 0, 1, 1, 0, 0, 0],
+                    [0, 1, 1, 0, 0, 0, 0],
+                    [1, 1, 0, 0, 0, 0, 0],
+                    [1, 1, 0, 1, 1, 1, 0],
+                    [1, 1, 0, 0, 0, 1, 1],
+                    [1, 1, 0, 0, 0, 1, 1],
+                    [1, 1, 0, 0, 0, 1, 1],
+                    [1, 1, 0, 0, 0, 1, 1],
+                    [0, 1, 1, 1, 1, 1, 0]
+                ],
+                [
+                    [1, 1, 1, 1, 1, 1, 1],
+                    [1, 1, 0, 0, 0, 1, 1],
+                    [0, 0, 0, 0, 1, 1, 0],
+                    [0, 0, 0, 0, 1, 1, 0],
+                    [0, 0, 0, 1, 1, 0, 0],
+                    [0, 0, 0, 1, 1, 0, 0],
+                    [0, 0, 1, 1, 0, 0, 0],
+                    [0, 0, 1, 1, 0, 0, 0],
+                    [0, 0, 1, 1, 0, 0, 0],
+                    [0, 0, 1, 1, 0, 0, 0]
+                ],
+                [
+                    [0, 1, 1, 1, 1, 1, 0],
+                    [1, 1, 0, 0, 0, 1, 1],
+                    [1, 1, 0, 0, 0, 1, 1],
+                    [1, 1, 0, 0, 0, 1, 1],
+                    [0, 1, 1, 1, 1, 1, 0],
+                    [1, 1, 0, 0, 0, 1, 1],
+                    [1, 1, 0, 0, 0, 1, 1],
+                    [1, 1, 0, 0, 0, 1, 1],
+                    [1, 1, 0, 0, 0, 1, 1],
+                    [0, 1, 1, 1, 1, 1, 0]
+                ],
+                [
+                    [0, 1, 1, 1, 1, 1, 0],
+                    [1, 1, 0, 0, 0, 1, 1],
+                    [1, 1, 0, 0, 0, 1, 1],
+                    [1, 1, 0, 0, 0, 1, 1],
+                    [0, 1, 1, 1, 0, 1, 1],
+                    [0, 0, 0, 0, 0, 1, 1],
+                    [0, 0, 0, 0, 0, 1, 1],
+                    [0, 0, 0, 0, 1, 1, 0],
+                    [0, 0, 0, 1, 1, 0, 0],
+                    [0, 1, 1, 0, 0, 0, 0]
+                ],
+                [
+                    [0, 0, 0, 0],
+                    [0, 0, 0, 0],
+                    [0, 1, 1, 0],
+                    [0, 1, 1, 0],
+                    [0, 0, 0, 0],
+                    [0, 0, 0, 0],
+                    [0, 1, 1, 0],
+                    [0, 1, 1, 0],
+                    [0, 0, 0, 0],
+                    [0, 0, 0, 0]
+                ]
+            ];
+
+            function l(t) {
+                var a = [],
+                    r = new Date(),
+                    currentSecond = r.getSeconds();
+                if (currentSecond !== lastSecond) {
+                    currentColorIndex = (currentColorIndex + 1) % v.length;
+                    lastSecond = currentSecond;
+                }
+                f.fillStyle = v[currentColorIndex];
+                var e = 70,
+                    o = 30,
+                    v_hours = r.getHours(),
+                    u = Math.floor(v_hours / 10),
+                    l = v_hours % 10;
+                a.push({ num: u });
+                a.push({ num: l });
+                a.push({ num: 10 });
+                var c = r.getMinutes();
+                u = Math.floor(c / 10);
+                l = c % 10;
+                a.push({ num: u });
+                a.push({ num: l });
+                a.push({ num: 10 });
+                var M = r.getSeconds();
+                u = Math.floor(M / 10);
+                l = M % 10;
+                a.push({ num: u });
+                a.push({ num: l });
+                for (var p = 0; p < a.length; p++) {
+                    a[p].offsetX = e;
+                    e = m(e, o, a[p].num, t);
+                    if (p < a.length - 1 && a[p].num != 10 && a[p + 1].num != 10) e += n;
+                }
+                if (h.length == 0) h = a;
+                else {
+                    for (var C = 0; C < h.length; C++) {
+                        if (h[C].num != a[C].num) {
+                            s(a[C]);
+                            h[C].num = a[C].num;
+                        }
+                    }
+                }
+                i(t);
+                g();
+                return r;
+            }
+
+            function s(t) {
+                var a = t.num,
+                    n = u[a];
+                for (var e = 0; e < n.length; e++) {
+                    for (var f = 0; f < n[e].length; f++) {
+                        if (n[e][f] == 1) {
+                            var h = {
+                                offsetX: t.offsetX + r + r * 2 * f,
+                                offsetY: 30 + r + r * 2 * e,
+                                color: v[currentColorIndex],
+                                g: 1.5 + Math.random(),
+                                vx: Math.pow(-1, Math.ceil(Math.random() * 10)) * 4 + Math.random(),
+                                vy: -5
+                            };
+                            o.push(h);
+                        }
+                    }
+                }
+            }
+
+            function i(t) {
+                for (var a = 0; a < o.length; a++) {
+                    t.beginPath();
+                    t.fillStyle = o[a].color;
+                    t.arc(o[a].offsetX, o[a].offsetY, r, 0, 2 * Math.PI);
+                    t.fill();
+                }
+            }
+
+            function g() {
+                var n = 0;
+                for (var f = 0; f < o.length; f++) {
+                    var v = o[f];
+                    v.offsetX += v.vx;
+                    v.offsetY += v.vy;
+                    v.vy += v.g;
+                    if (v.offsetY > a - r) {
+                        v.offsetY = a - r;
+                        v.vy = -v.vy * e;
+                    }
+                    if (v.offsetX > r && v.offsetX < t - r) {
+                        o[n] = o[f];
+                        n++;
+                    }
+                }
+                for (; n < o.length; n++) o.pop();
+            }
+
+            function m(t, a, n, e) {
+                var f = u[n];
+                for (var o = 0; o < f.length; o++) {
+                    for (var v = 0; v < f[o].length; v++) {
+                        if (f[o][v] == 1) {
+                            e.beginPath();
+                            e.arc(t + r + r * 2 * v, a + r + r * 2 * o, r, 0, 2 * Math.PI);
+                            e.fill();
+                        }
+                    }
+                }
+                e.beginPath();
+                t += f[0].length * r * 2;
+                return t;
+            }
+            var c = document.getElementById("canvas");
+            c.width = t;
+            c.height = a;
+            f = c.getContext("2d");
+            setInterval(function() {
+                f.clearRect(0, 0, f.canvas.width, f.canvas.height);
+                l(f);
+            }, 50);
+        })();
+
+        // ---- 特性 ----
+        window.onpageshow = function(e) { if (e.persisted) window.location.reload(); };
+        window.onload = function() { document.body.classList.remove('is-preload'); };
+        window.ontouchmove = function() { return false; };
+        window.onorientationchange = function() { document.body.scrollTop = 0; };
+
+        // ---- 主逻辑 ----
+        var iUp = (function() {
+            var t = 0,
+                d = 150;
+            return {
+                up: function(e) {
+                    setTimeout(function() { $(e).addClass("up"); }, t);
+                    t += d;
+                },
+                clean: function() { t = 0; }
+            };
+        })();
+        var yiyan = "";
+
+        function processTextWithHighlights(text) {
+            var rules = [
+                { word: '明确', cls: 'highlight-red' },
+                { word: '和', cls: 'highlight-green' },
+                { word: '梦想', cls: 'highlight-blue' },
+                { word: '希望', cls: 'highlight-purple' },
+                { word: '爱', cls: 'highlight-pink' },
+                { word: '美', cls: 'highlight-cyan' },
+                { word: '真', cls: 'highlight-yellow' },
+                { word: '善', cls: 'highlight-orange' },
+                { word: '自由', cls: 'highlight-red' },
+                { word: '快乐', cls: 'highlight-green' },
+                { word: '幸福', cls: 'highlight-blue' },
+                { word: '成功', cls: 'highlight-purple' },
+                { word: '努力', cls: 'highlight-pink' },
+                { word: '坚持', cls: 'highlight-cyan' },
+                { word: '勇气', cls: 'highlight-yellow' },
+                { word: '智慧', cls: 'highlight-orange' },
+                { word: '时间', cls: 'highlight-red' },
+                { word: '生命', cls: 'highlight-green' },
+                { word: '青春', cls: 'highlight-blue' },
+                { word: '未来', cls: 'highlight-purple' },
+                { word: '过去', cls: 'highlight-pink' },
+                { word: '现在', cls: 'highlight-cyan' },
+                { word: '朋友', cls: 'highlight-yellow' },
+                { word: '家人', cls: 'highlight-orange' },
+                { word: '学习', cls: 'highlight-red' },
+                { word: '成长', cls: 'highlight-green' },
+                { word: '改变', cls: 'highlight-blue' },
+                { word: '选择', cls: 'highlight-purple' },
+                { word: '决定', cls: 'highlight-pink' },
+                { word: '思考', cls: 'highlight-cyan' }
+            ];
+            var processed = text;
+            rules.forEach(function(r) {
+                var regex = new RegExp(r.word, 'g');
+                processed = processed.replace(regex, '<span class="' + r.cls + '">' + r.word + '</span>');
+            });
+            return processed;
+        }
+
+        $(document).ready(function() {
+            fetch('https://v1.hitokoto.cn')
+                .then(function(res) { return res.json(); })
+                .then(function(e) {
+                    yiyan = e.hitokoto;
+                    $('#description').html(processTextWithHighlights(e.hitokoto) + '<br/> -「<strong>' + e.from + '</strong>」');
+                })
+                .catch(function(err) { console.error(err); });
+            $(".iUp").each(function(i, e) { iUp.up(e); });
+            $(".js-avatar")[0].onload = function() { $(".js-avatar").addClass("show"); };
+        });
+
+        var originalTitle = "南城の主页";
+
+        function updateTimeTitle() {
+            var h = new Date().getHours();
+            var t;
+            if (h <= 5) t = "深夜啦，还不休息吗？身体是革命的本钱哦";
+            else if (h <= 8) t = "早上好，昨晚睡得还好吗？";
+            else if (h <= 10) t = "而你 我的朋友，天一亮你才是真正的帕鲁";
+            else if (h >= 16 && h <= 17) t = "傍晚了，想好吃什么了吗？";
+            else if (h >= 20 && h <= 24) t = "快深夜了，再忙也要注意休息呀";
+            else t = yiyan;
+            document.title = originalTitle + " - " + t;
+        }
+        setInterval(updateTimeTitle, 1000);
+
+        // ---- 调试检测 ----
+        let devToolsOpen = false;
+
+        function detectDevTool() {
+            if (window.outerWidth - window.innerWidth > 160 || window.outerHeight - window.innerHeight > 160) {
+                if (!devToolsOpen) {
+                    window.location.href = 'http://bing.com';
+                    window.stop;
+                    debugger;
+                }
+                devToolsOpen = true;
+            } else devToolsOpen = false;
+        }
+        setInterval(detectDevTool, 1);
+
+        // ---- 雪花 ----
+        (function() {
+            if (!document.getElementById('bg')) return;
+
+            function createSnow() {
+                var width = window.innerWidth,
+                    height = window.innerHeight;
+                var el = document.createElement('div');
+                var size = Math.random() * 12 + 4;
+                el.style.cssText = 'position:fixed;pointer-events:none;z-index:9998;width:' + size + 'px;height:' + size +
+                    'px;background:rgba(255,255,255,0.7);border-radius:50%;filter:blur(1px);left:' + Math.random() * width +
+                    'px;top:-10px;opacity:' + (0.3 + Math.random() * 0.5);
+                document.body.appendChild(el);
+                var speed = 2 + Math.random() * 4;
+                var timer = setInterval(function() {
+                    var top = parseFloat(el.style.top) + speed;
+                    if (top > height + 20) { clearInterval(timer);
+                        el.remove(); } else el.style.top = top + 'px';
+                }, 30);
+            }
+            setInterval(createSnow, 80);
+        })();
+
+        // ---- 音乐控制（已启用，自动播放） ----
+        (function() {
+            var audio = document.getElementById('bgm');
+            var player = document.getElementById('musicPlayer');
+            var disc = document.getElementById('musicDisc');
+            var playBtn = document.getElementById('playBtn');
+            var playIcon = document.getElementById('playIcon');
+            var isPlaying = false;
+
+            function togglePlay() {
+                if (isPlaying) {
+                    audio.pause();
+                    isPlaying = false;
+                    playIcon.className = 'fas fa-play';
+                    player.classList.add('paused');
+                } else {
+                    audio.play().then(function() {
+                        isPlaying = true;
+                        playIcon.className = 'fas fa-pause';
+                        player.classList.remove('paused');
+                    }).catch(function() {
+                        audio.load();
+                        audio.play().then(function() {
+                            isPlaying = true;
+                            playIcon.className = 'fas fa-pause';
+                            player.classList.remove('paused');
+                        }).catch(function(e) { console.warn(e); });
+                    });
+                }
+            }
+
+            playBtn.addEventListener('click', function(e) { e.stopPropagation();
+                togglePlay(); });
+            player.addEventListener('click', function(e) { if (e.target.closest('.music-control-btn')) return;
+                togglePlay(); });
+
+            function autoPlay() {
+                audio.play().then(function() {
+                    isPlaying = true;
+                    playIcon.className = 'fas fa-pause';
+                    player.classList.remove('paused');
+                }).catch(function() {
+                    playIcon.className = 'fas fa-play';
+                    player.classList.add('paused');
+                    // 用户点击页面时尝试播放
+                    document.addEventListener('click', function tryPlay() {
+                        audio.play().then(function() {
+                            isPlaying = true;
+                            playIcon.className = 'fas fa-pause';
+                            player.classList.remove('paused');
+                            document.removeEventListener('click', tryPlay);
+                        }).catch(function() {});
+                    }, { once: true });
+                });
+            }
+
+            window.addEventListener('load', autoPlay);
+
+            audio.addEventListener('error', function() {
+                playIcon.className = 'fas fa-exclamation-triangle';
+                player.style.opacity = '0.6';
+            });
+
+            // 拖拽
+            var isDragging = false,
+                offsetX = 0,
+                offsetY = 0;
+
+            function onDragStart(e) {
+                if (e.target.closest('.music-control-btn')) return;
+                var ev = e.touches ? e.touches[0] : e;
+                isDragging = true;
+                var rect = player.getBoundingClientRect();
+                offsetX = ev.clientX - rect.left;
+                offsetY = ev.clientY - rect.top;
+                player.style.cursor = 'grabbing';
+                player.style.transition = 'none';
+                player.style.right = 'auto';
+                player.style.left = rect.left + 'px';
+                player.style.top = rect.top + 'px';
+                player.style.bottom = 'auto';
+                e.preventDefault && e.preventDefault();
+            }
+
+            function onDragMove(e) {
+                if (!isDragging) return;
+                var ev = e.touches ? e.touches[0] : e;
+                var newX = ev.clientX - offsetX,
+                    newY = ev.clientY - offsetY;
+                var winW = window.innerWidth,
+                    winH = window.innerHeight;
+                var w = player.offsetWidth || 140,
+                    h = player.offsetHeight || 40;
+                newX = Math.max(0, Math.min(winW - w, newX));
+                newY = Math.max(0, Math.min(winH - h - 10, newY));
+                player.style.left = newX + 'px';
+                player.style.top = newY + 'px';
+                e.preventDefault && e.preventDefault();
+            }
+
+            function onDragEnd(e) {
+                if (isDragging) {
+                    isDragging = false;
+                    player.style.cursor = 'grab';
+                    player.style.transition = 'box-shadow 0.3s, background 0.3s';
+                    try {
+                        var rect = player.getBoundingClientRect();
+                        localStorage.setItem('musicPlayerX', rect.left);
+                        localStorage.setItem('musicPlayerY', rect.top);
+                    } catch (e) {}
+                }
+            }
+            player.addEventListener('mousedown', onDragStart);
+            document.addEventListener('mousemove', onDragMove);
+            document.addEventListener('mouseup', onDragEnd);
+            player.addEventListener('touchstart', onDragStart, { passive: false });
+            document.addEventListener('touchmove', onDragMove, { passive: false });
+            document.addEventListener('touchend', onDragEnd);
+
+            try {
+                var sx = localStorage.getItem('musicPlayerX'),
+                    sy = localStorage.getItem('musicPlayerY');
+                if (sx && sy) {
+                    var x = parseFloat(sx),
+                        y = parseFloat(sy);
+                    if (!isNaN(x) && !isNaN(y) && x >= 0 && y >= 0) {
+                        player.style.right = 'auto';
+                        player.style.left = x + 'px';
+                        player.style.top = y + 'px';
+                        player.style.bottom = 'auto';
+                    }
+                }
+            } catch (e) {}
+        })();
+
+        // ---- 配置数据 ----
+        var appConfig = {
+            "appName": "yu",
+            "appPackageName": "yu.app",
+            "appVersionName": "1.0",
+            "appVersionCode": 100000,
+            "data": {
+                "启用顶栏": true,
+                "顶栏标题": "yu个人主页",
+                "顶栏颜色": "#FF2C2E43",
+                "横屏": false,
+                "显示状态栏": true,
+                "启用进度条": true,
+                "进度条颜色": "#00000000",
+                "支持打开外部应用": true,
+                "提示打开外部应用": false,
+                "启动页面": "index.html"
+            },
+            "indexPages": [],
+            "extraHeaders": {}
+        };
+        console.log('App Config loaded:', appConfig);
+    </script>
+</body>
+</html>
